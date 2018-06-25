@@ -1,0 +1,29 @@
+{
+  "source": ".",
+  "destination": "./generated/doc",
+  "includes": ["\\.js$"],
+  "excludes": ["^__mocks__", "^node_modules", "^generated", "^test_helpers", "^public", "^test_helpers", "^configuration.js", "\\.test\\.js$", "\\.spec\\.js$"],
+  "plugins": [
+    {"name": "esdoc-jsx-plugin", "option": {"enable": true}},
+    {
+      "name": "esdoc-standard-plugin",
+      "option": {
+        "lint": {"enable": true},
+        "coverage": {"enable": true},
+        "accessor": {"access": ["public", "protected", "private"], "autoPrivate": true},
+        "undocumentIdentifier": {"enable": true},
+        "unexportedIdentifier": {"enable": false},
+        "typeInference": {"enable": true},
+        "test": {
+          "source": "./src",
+          "includes": ["\\.test\\.js$", "\\.spec\\.js$"],
+          "interfaces": ["describe", "test"]
+        },
+        "manual": {
+          "index": "./README.md",
+          "files": []
+        }
+      }
+    }
+  ]
+}

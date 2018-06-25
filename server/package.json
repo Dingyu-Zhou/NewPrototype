@@ -1,0 +1,59 @@
+{
+  "name": "wisdomile-server",
+  "version": "0.1.0",
+  "description": "WisdoMile Server",
+  "author": "All WisdoMile Contributors",
+  "license": "MIT",
+  "main": "src/server.js",
+  "scripts": {
+    "init": "cp -n ./configuration_template.js ./configuration.js || ls ./configuration.js",
+    "pre-build": "yarn run init && yarn run style-fix",
+    "start": "yarn run build && node ./generated/build/src/server.js",
+    "build": "yarn run pre-build && babel . --out-dir ./generated/build --ignore script,test_helper,node_modules,generated,configuration_template.js,__tests__/,spec.js,test.js",
+    "watch": "yarn run build -- --watch",
+    "style-fix": "standard --fix ./configuration.js \"./src/**/*.js\" \"./script/**/*.js\" \"./test_helper/**/*.js\"",
+    "test": "yarn run pre-build && jest",
+    "test-changed": "yarn run pre-build && jest -o",
+    "test-watch": "yarn run init && jest --watch",
+    "test-coverage": "yarn run pre-build && jest --coverage",
+    "doc": "esdoc",
+    "build-script": "yarn run pre-build && babel ./script ./src/constants.js ./configuration.js --out-dir ./generated/script",
+    "database-reset-all": "node ./generated/script/database/reset_all.js"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "./test_helper/main.js",
+    "coverageDirectory": "./generated/test_coverage",
+    "coveragePathIgnorePatterns": [
+      "./script",
+      "./test_helper",
+      "./node_modules/",
+      "./generated/"
+    ]
+  },
+  "standard": {
+    "env": "jest"
+  },
+  "dependencies": {
+    "bcrypt": "^1.0.2",
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.3",
+    "express": "^4.15.3",
+    "express-jwt": "^5.3.0",
+    "graphql": "^0.10.1",
+    "graphql-server-express": "^0.8.5",
+    "graphql-tools": "^1.0.0",
+    "jsonwebtoken": "^7.4.3",
+    "mongoose": "4.10.6"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-jest": "^20.0.3",
+    "babel-preset-env": "^1.5.2",
+    "casual": "^1.5.14",
+    "esdoc": "^1.0.4",
+    "esdoc-standard-plugin": "^1.0.0",
+    "factory-girl": "^4.3.0",
+    "jest": "^20.0.4",
+    "standard": "^10.0.2"
+  }
+}
